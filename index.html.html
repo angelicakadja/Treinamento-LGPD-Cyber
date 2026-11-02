@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cartilha do colaborador: LGPD, privacidade e cibersegurança</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--n:#1B2027;--n2:#2C343E;--c:#8C6410;--t:#3F5F52;--m:#F1EFEA;--p:#F6EBD3;--ink:#1f2630;--h:'Bricolage Grotesque','Figtree',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--n);color:var(--ink);font:15.5px/1.55 'Figtree',system-ui,sans-serif;display:grid;grid-template-rows:1fr auto;justify-items:center;padding:10px 8px calc(8px + env(safe-area-inset-bottom));overflow-x:hidden}
+.book{position:relative;width:min(540px,100%);height:calc(100dvh - 78px);max-height:800px;align-self:center;perspective:1800px}
+.book::before{content:"";position:absolute;inset:0;background:#fff;border-radius:4px 10px 10px 4px;box-shadow:5px 5px 0 #e4e0d8,10px 10px 0 #cfcac0;z-index:-1}
+.leaf{position:absolute;inset:0;transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff;border-radius:4px 10px 10px 4px;overflow:hidden;display:flex;flex-direction:column}
+.ready .leaf{transition:transform .75s cubic-bezier(.6,.05,.3,1),opacity .2s .55s}
+.leaf.turned{transform:rotateY(-90deg);opacity:0;pointer-events:none}
+.ready .leaf:not(.turned){transition:transform .75s cubic-bezier(.6,.05,.3,1),opacity .1s}
+.leaf::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.18),transparent 7%)}
+.band{background:var(--c);color:#fff;padding:9px 24px;font:600 .85rem var(--h);flex:none}
+.sheet{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:20px 26px 12px;container-type:inline-size}
+.foot{flex:none;display:flex;justify-content:space-between;align-items:center;padding:6px 26px 10px;font-size:.78rem;color:#6b6f76}
+h1,h2{font-family:var(--h);color:var(--n);line-height:1.1;letter-spacing:-.01em}
+h2{font-size:1.65rem;margin-bottom:10px}
+h3{font:700 1.02rem var(--h);color:var(--c);margin:16px 0 4px}
+p+p{margin-top:8px}
+.lead{font-size:1.06rem}
+b{color:var(--n)}
+.sign{text-align:center;margin-top:30px;padding-top:16px;border-top:1px solid #d9d4c8}.sign img{height:auto;display:block;margin:0 auto 10px}.sign p{display:flex;flex-direction:column;gap:2px;font-size:.84rem}.sign a{color:var(--n2);text-decoration:none;padding:3px 0}.sign a:hover,.sign a:focus-visible{color:var(--c);text-decoration:underline}.il{float:right;width:112px;height:auto;margin:0 0 8px 12px}.duo,.alert,.note{clear:both}.big{font:800 3.6rem/1 var(--h);color:var(--c);margin:2px 0 4px}
+.duo{display:grid;gap:10px;margin-top:12px}
+@container (min-width:430px){.duo{grid-template-columns:1fr 1fr}}
+.box{border-radius:8px;padding:12px 14px;background:var(--m)}
+.box.s{background:var(--p)}
+.box h3{margin-top:0;color:var(--t)}.box.s h3{color:#6b4a0a}
+ul{padding-left:18px}li{margin:3px 0}
+.ex{font-size:.88rem;margin-top:8px;padding-top:6px;border-top:1px dashed #b9b4a8;color:#3b4048}
+.rule{border-left:4px solid var(--c);padding:2px 0 2px 12px;margin-top:12px}
+.rule b{display:block;font:700 1rem var(--h)}
+.alert{background:var(--c);color:#fff;border-radius:8px;padding:12px 14px;margin-top:14px}.alert b{color:#fff}
+.note{background:var(--n);color:#e6e8eb;border-radius:8px;padding:12px 14px;margin-top:14px}.note b{color:#E3C16F}
+.lv{display:grid;grid-template-columns:7.2rem 1fr;gap:2px 10px;padding:9px 12px;color:#fff;border-radius:6px;margin-top:6px;font-size:.88rem}
+.lv b{color:#fff;font:700 1rem var(--h);grid-row:span 2;align-self:center}
+.lv:nth-last-of-type(4){background:#8d99a6}.lv:nth-last-of-type(3){background:#66737f}.lv:nth-last-of-type(2){background:#424c57}.lv:nth-last-of-type(1){background:var(--n)}
+.cmp li{list-style:none;position:relative;padding-left:22px}
+.cmp li::before{position:absolute;left:0;font-weight:700}
+.no li::before{content:"✕";color:#9b2c2c}.ok li::before{content:"✓";color:var(--t)}
+.st{counter-reset:s;list-style:none;padding:0}
+.st li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;margin:9px 0}
+.st li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--c);color:#fff;font:700 .95rem/30px var(--h);text-align:center}
+.url{display:inline-block;border-radius:20px;padding:2px 12px;font-size:.88rem;margin:2px 4px 2px 0}
+.u1{background:#f4dcdc;color:#9b2c2c}.u2{background:#e0efe6;color:#20613f}
+.cover{background:var(--n) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpath d='M0 45C0 18 18 0 45 0 45 27 27 45 0 45Z' fill='%23262e38'/%3E%3Cpath d='M90 90C90 63 72 45 45 45 45 72 63 90 90 90Z' fill='%23222931'/%3E%3C/svg%3E");color:#fff;padding:34px 28px 28px;justify-content:space-between}
+.cover h1{color:#fff;font-size:2.35rem;font-weight:800}
+.cover p{color:#d6d9de}
+.cover svg{width:130px;height:auto}
+.hint{position:absolute;top:0;bottom:0;width:17%;z-index:300;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .2s;font:700 1.6rem var(--h);color:var(--n)}
+.hl{left:0;background:linear-gradient(90deg,rgba(2,31,71,.14),transparent)}.hr{right:0;background:linear-gradient(-90deg,rgba(2,31,71,.14),transparent)}
+.book.l .hl,.book.r .hr{opacity:1}
+.book.first .hl,.book.last .hr{opacity:0!important}
+@media (hover:none){.hint{opacity:.45}}
+.nav{display:flex;align-items:center;gap:12px;color:#d6d9de;font-size:.85rem;height:52px}
+.nav button{width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:var(--n);font-size:1.3rem;cursor:pointer}
+.nav button:disabled{opacity:.3}
+.nav button:focus-visible{outline:3px solid #E3C16F;outline-offset:2px}
+.dots{display:flex;gap:7px}
+.dots button{width:10px;height:10px;padding:0;background:#5a636e}
+.dots button[aria-current]{background:#fff;width:24px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){.ready .leaf{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="shield" viewBox="0 0 100 110"><path d="M50 4 92 20v34c0 28-19 46-42 54C27 100 8 82 8 54V20Z" fill="#B8892B"/><path d="M50 12 84 25v29c0 22-15 38-34 45C31 92 16 76 16 54V25Z" fill="#1B2027"/><rect x="34" y="50" width="32" height="26" rx="5" fill="#fff"/><path d="M40 50v-9a10 10 0 0 1 20 0v9" fill="none" stroke="#fff" stroke-width="6"/><circle cx="50" cy="62" r="4" fill="#8C6410"/><rect x="48" y="62" width="4" height="9" rx="2" fill="#8C6410"/></symbol>
+<symbol id="ok" viewBox="0 0 100 110"><path d="M50 4 92 20v34c0 28-19 46-42 54C27 100 8 82 8 54V20Z" fill="#8C6410"/><path d="M30 56l15 15 27-30" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="doc" viewBox="0 0 120 90"><rect x="28" y="6" width="58" height="76" rx="6" fill="#fff" stroke="#1B2027" stroke-width="4"/><path d="M40 26h34M40 38h34M40 50h22" stroke="#b9b4a8" stroke-width="4" stroke-linecap="round"/><circle cx="86" cy="64" r="22" fill="#8C6410"/><rect x="77" y="62" width="18" height="14" rx="3" fill="#fff"/><path d="M81 62v-5a5 5 0 0 1 10 0v5" fill="none" stroke="#fff" stroke-width="3"/></symbol>
+<symbol id="fp" viewBox="0 0 120 90"><g fill="none" stroke="#B8892B" stroke-width="5" stroke-linecap="round"><circle cx="60" cy="45" r="10" stroke-dasharray="36 12"/><circle cx="60" cy="45" r="22" stroke-dasharray="80 18" stroke="#2C343E"/><circle cx="60" cy="45" r="34" stroke-dasharray="120 30"/></g><circle cx="60" cy="45" r="3" fill="#8C6410"/></symbol>
+<symbol id="vault" viewBox="0 0 120 90"><rect x="22" y="8" width="76" height="68" rx="9" fill="#1B2027"/><rect x="30" y="16" width="60" height="52" rx="5" fill="#2C343E"/><circle cx="60" cy="42" r="17" fill="none" stroke="#E3C16F" stroke-width="5"/><path d="M60 30v24M48 42h24" stroke="#E3C16F" stroke-width="4"/><rect x="34" y="76" width="10" height="8" fill="#1B2027"/><rect x="76" y="76" width="10" height="8" fill="#1B2027"/></symbol>
+<symbol id="lap" viewBox="0 0 120 90"><rect x="24" y="8" width="72" height="52" rx="5" fill="#1B2027"/><path d="M60 18l17 30H43Z" fill="#FFC000"/><path d="M60 28v10" stroke="#1B2027" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="43" r="2.5" fill="#1B2027"/><path d="M10 66h100l-8 12H18Z" fill="#cfcac0"/></symbol>
+<symbol id="hook" viewBox="0 0 120 90"><rect x="14" y="26" width="80" height="54" rx="6" fill="#fff" stroke="#1B2027" stroke-width="4"/><path d="M14 32 54 60 94 32" fill="none" stroke="#1B2027" stroke-width="4"/><path d="M96 2v36a12 12 0 0 1-24 0" fill="none" stroke="#8C6410" stroke-width="6" stroke-linecap="round"/><path d="M72 38l-6-7M72 38l8-6" stroke="#8C6410" stroke-width="5" stroke-linecap="round"/></symbol>
+</svg>
+
+<main class="book" id="book" role="region" aria-label="Cartilha, vire a página tocando nas laterais">
+
+<article class="leaf cover" aria-label="Capa">
+ <div><svg role="img" aria-label="Escudo com cadeado" viewBox="0 0 100 110"><use href="#shield"/></svg><div style="font:800 1.5rem var(--h);color:#E3C16F;margin-top:6px">LGPD</div></div>
+ <div>
+  <h1>LGPD, privacidade de dados e cibersegurança</h1>
+  <p class="lead" style="margin-top:12px">O que todo colaborador precisa saber para proteger dados pessoais e reconhecer ameaças digitais.</p>
+ </div>
+ <p style="font-size:.85rem">Cartilha de apoio ao treinamento interno · Angélica Kadja<br><b style="color:#E3C16F">Toque na lateral direita para virar a página →</b></p>
+</article>
+
+<article class="leaf" aria-label="O que é a LGPD">
+ <div class="band">O que é a LGPD</div>
+ <div class="sheet">
+  <svg class="il" viewBox="0 0 120 90" aria-hidden="true"><use href="#doc"/></svg><div class="big">13.709</div>
+  <h2>Lei Geral de Proteção de Dados Pessoais (2018)</h2>
+  <p class="lead">Ela define como empresas e pessoas devem coletar, usar, armazenar e compartilhar dados pessoais no Brasil.</p>
+  <p>Não é só um tema jurídico: afeta o jeito como cada colaborador lida, todos os dias, com dados de clientes, fornecedores e colegas.</p>
+  <div class="rule"><b>Vale para toda a empresa</b>Se tratamos dados de pessoas no Brasil, a lei se aplica, seja qual for o setor ou o cargo.</div>
+  <div class="rule"><b>Responsabilidade de todos</b>RH, Vendas, TI, Financeiro… qualquer área que lide com dados pessoais tem um papel direto.</div>
+  <div class="duo">
+   <div class="box"><h3>Dado pessoal</h3><p>Qualquer informação que identifique uma pessoa, mesmo indiretamente.</p><ul><li>Nome completo e CPF</li><li>E-mail e telefone</li><li>Endereço e placa de veículo</li><li>Cargo e matrícula</li></ul><p class="ex">No dia a dia: o e-mail corporativo de um cliente numa planilha de vendas.</p></div>
+   <div class="box s"><h3>Dado sensível</h3><p>Exige cuidado redobrado: se exposto, pode gerar discriminação ou dano grave.</p><ul><li>Saúde e histórico médico</li><li>Origem racial ou étnica</li><li>Religião e opinião política</li><li>Dados biométricos e genéticos</li></ul><p class="ex">No dia a dia: um atestado médico anexado ao processo de RH.</p></div>
+  </div>
+ </div>
+ <div class="foot"><span>Cartilha LGPD</span><span>pág. 2</span></div>
+</article>
+
+<article class="leaf" aria-label="Princípios e direitos">
+ <div class="band">Princípios e direitos</div>
+ <div class="sheet">
+  <svg class="il" viewBox="0 0 120 90" aria-hidden="true"><use href="#fp"/></svg><h2>Dois princípios para o dia a dia</h2>
+  <p>Transparência, segurança, prevenção, qualidade dos dados e não discriminação seguem a mesma lógica: <b>o mínimo de dado necessário e o máximo de cuidado.</b></p>
+  <div class="duo">
+   <div class="box"><h3>Necessidade</h3><p>Colete e guarde só o dado estritamente necessário. Nada "por precaução": se precisar de mais, peça ao titular.</p><p class="ex">Um formulário de evento não precisa de CPF se só vai controlar presença.</p></div>
+   <div class="box"><h3>Finalidade</h3><p>Use o dado só para o fim informado à pessoa, nunca para outro propósito sem avisar.</p><p class="ex">O e-mail coletado para suporte não vira lista de divulgação sem consentimento.</p></div>
+  </div>
+  <h2 style="margin-top:22px">Direitos do titular</h2>
+  <p>Cliente, fornecedor ou colega: qualquer pessoa pode pedir à empresa, a qualquer momento:</p>
+  <ul class="cmp ok"><li><b>Acesso e correção:</b> consultar dados ou corrigir os incompletos</li><li><b>Eliminação:</b> excluir dados desnecessários</li><li><b>Portabilidade:</b> transferir dados a outro fornecedor</li><li><b>Revogação:</b> retirar um consentimento já dado</li><li><b>Informação:</b> saber com quem o dado é compartilhado</li></ul>
+  <div class="alert"><b>Se alguém pedir isso a você, não responda.</b> Encaminhe ao Encarregado de Dados, <b>Leandro Schmitz</b>.</div>
+ </div>
+ <div class="foot"><span>Cartilha LGPD</span><span>pág. 3</span></div>
+</article>
+
+<article class="leaf" aria-label="Vazamento e classificação">
+ <div class="band">Vazamento e classificação</div>
+ <div class="sheet">
+  <svg class="il" viewBox="0 0 120 90" aria-hidden="true"><use href="#vault"/></svg><h2>O que um vazamento custa?</h2>
+  <p>A maioria dos incidentes nasce de um erro simples e evitável: e-mail para o destinatário errado, link clicado sem checar, senha compartilhada.</p>
+  <div class="rule"><b>Multa da ANPD</b>Até 2% do faturamento da empresa no Brasil, limitado a R$ 50 milhões por infração.</div>
+  <div class="rule"><b>Dano à reputação</b>Perda de confiança de clientes e parceiros, com repercussão pública e nas redes.</div>
+  <div class="rule"><b>Medidas disciplinares</b>Negligência ou descumprimento de política interna pode gerar advertência ou processo.</div>
+  <h2 style="margin-top:22px">Qual é o nível desta informação?</h2>
+  <p>Antes de enviar ou compartilhar um documento, pergunte-se isso.</p>
+  <div class="lv"><b>Pública</b><span>Material institucional, site da empresa</span><span>Quem acessa: qualquer pessoa</span></div>
+  <div class="lv"><b>Interna</b><span>Comunicados, processos internos</span><span>Quem acessa: colaboradores</span></div>
+  <div class="lv"><b>Confidencial</b><span>Dados de clientes, contratos</span><span>Quem acessa: equipe autorizada, com controle</span></div>
+  <div class="lv"><b>Restrita</b><span>Dados sensíveis, financeiros estratégicos</span><span>Quem acessa: acesso nominal e registrado</span></div>
+ </div>
+ <div class="foot"><span>Cartilha LGPD</span><span>pág. 4</span></div>
+</article>
+
+<article class="leaf" aria-label="Shadow IT e incidentes">
+ <div class="band">Shadow IT e incidentes</div>
+ <div class="sheet">
+  <svg class="il" viewBox="0 0 120 90" aria-hidden="true"><use href="#lap"/></svg><h2>Dispositivos e "Shadow IT"</h2>
+  <p>É usar ferramentas não autorizadas pela empresa para guardar ou tratar dados de trabalho. Mesmo sem má intenção, cria um <b>ponto cego de segurança</b>.</p>
+  <div class="duo">
+   <div class="box s"><h3>Evite</h3><ul class="cmp no"><li>Baixar software não homologado pela TI</li><li>Usar e-mail pessoal para arquivos de trabalho</li><li>Salvar dados da empresa em nuvem pessoal</li></ul></div>
+   <div class="box"><h3>Faça</h3><ul class="cmp ok"><li>Use só ferramentas aprovadas pela TI</li><li>Guarde arquivos nos sistemas oficiais</li><li>Precisa de ferramenta nova? Peça avaliação antes</li></ul></div>
+  </div>
+  <h2 style="margin-top:22px">Clicou, perdeu ou suspeitou? Aja rápido</h2>
+  <ol class="st">
+   <li><span><b>Não entre em pânico.</b> Erros ocorrem; o importante é agir rápido, não escondê-los.</span></li>
+   <li><span><b>Isole.</b> Desconecte o dispositivo da rede, se possível, sem desligá-lo.</span></li>
+   <li><span><b>Reporte na hora.</b> Avise TI/Segurança ou o Encarregado (DPO), mesmo fora do horário.</span></li>
+   <li><span><b>Registre.</b> Guarde prints, horário e detalhes para apoiar a investigação.</span></li>
+  </ol>
+  <div class="note"><b>Cultura do "não pânico":</b> relatar rápido um erro não intencional não gera punição. O que se pune é esconder o incidente e atrasar a resposta.</div>
+ </div>
+ <div class="foot"><span>Cartilha LGPD</span><span>pág. 5</span></div>
+</article>
+
+<article class="leaf" aria-label="Ameaças e golpes">
+ <div class="band">Ameaças e golpes</div>
+ <div class="sheet">
+  <svg class="il" viewBox="0 0 120 90" aria-hidden="true"><use href="#hook"/></svg><h2>Os inimigos invisíveis</h2>
+  <div class="rule"><b>🦠 Vírus de computador</b>Programas maliciosos que se replicam infectando outros arquivos. Precisam de uma ação sua (como abrir um arquivo infectado) para se espalhar, corrompendo dados ou travando o sistema.</div>
+  <div class="rule"><b>🐴 Trojans (cavalos de Troia)</b>Parecem úteis (um jogo, uma atualização), mas escondem malware. Abrem "portas dos fundos" para roubar senhas e dados bancários e controlar a máquina.</div>
+  <div class="rule"><b>🎭 Engenharia social</b>Manipular pessoas para que entreguem informações ou instalem ameaças, explorando confiança, medo, pressa ou curiosidade: falso e-mail urgente do banco, falso suporte técnico, brinde imperdível.</div>
+  <h2 style="margin-top:22px">Como reconhecer sites falsos</h2>
+  <h3 style="margin-top:6px">🔍 Olhe a URL com atenção</h3>
+  <p>Criminosos trocam letras ou usam extensões estranhas (.net, .co, .org-br).</p>
+  <span class="url u1">✕ merccadolivre.com</span><span class="url u2">✓ mercadolivre.com</span>
+  <h3>🔒 O cadeado não garante nada</h3>
+  <p>Ele só indica conexão criptografada. Sites criminosos também usam certificados gratuitos.</p>
+  <h3>⚠️ Sinais de alerta</h3>
+  <ul><li><b>Urgência exagerada:</b> "Sua conta será bloqueada em 2 horas"</li><li><b>Erros de português</b> ou logotipos distorcidos</li><li><b>Ofertas boas demais</b> para ser verdade</li></ul>
+  <div class="alert"><b>🛡️ Regra de ouro:</b> nunca clique em link suspeito de WhatsApp ou e-mail para acessar banco ou comprar. Digite o endereço oficial ou use os apps oficiais das marcas.</div>
+ </div>
+ <div class="foot"><span>Cartilha LGPD</span><span>pág. 6</span></div>
+</article>
+
+<article class="leaf" aria-label="Boas práticas">
+ <div class="band">Boas práticas</div>
+ <div class="sheet">
+  <svg class="il" viewBox="0 0 100 110" aria-hidden="true"><use href="#ok"/></svg><h2>Boas práticas no dia a dia</h2>
+  <ul class="cmp ok" style="padding:0">
+   <li style="margin:12px 0"><b>Mesa e tela limpas.</b> Bloqueie o computador ao se ausentar e não deixe documentos com dados expostos.</li>
+   <li style="margin:12px 0"><b>Compartilhamento mínimo.</b> Envie dados pessoais só a quem realmente precisa, pelo canal correto.</li>
+   <li style="margin:12px 0"><b>Senhas fortes e únicas.</b> Use gerenciador de senhas e ative a autenticação em duas etapas (MFA).</li>
+   <li style="margin:12px 0"><b>Cuidado com e-mail e links.</b> Confira remetente e URL antes de clicar ou baixar anexos.</li>
+  </ul>
+  <div class="note">
+    <b>Ficou com dúvida?</b>
+    <br>
+    Fale com o Encarregado de Dados de sua empresa, ou com a TI/Segurança.
+    <br>
+    Na dúvida, pergunte antes de agir.</div>
+  
+    <div class="sign">
+    <br>
+    <img src="./img/ked.png" alt="K&amp;D" width="96">
+    <p>
+      <a href="https://github.com/angelicakadja" target="_blank" rel="noopener">Angélica Kadja - GitHub</a>
+      <a href="https://www.linkedin.com/in/adm-angelicakadja" target="_blank" rel="noopener">Angélica Kadja - LinkedIn</a>
+      <a href="https://sintesenuaecrua.blogspot.com/" target="_blank" rel="noopener">Angélica Kadja - Blogger</a></p></div>
+ </div>
+ <div class="foot"><span>Material de apoio ao treinamento interno</span><span>pág. 7</span></div>
+</article>
+
+<div class="hint hl" aria-hidden="true">‹</div><div class="hint hr" aria-hidden="true">›</div>
+</main>
+
+<nav class="nav" aria-label="Navegação">
+ <button id="pv" aria-label="Página anterior">‹</button>
+ <div class="dots" id="dots"></div>
+ <button id="nx" aria-label="Próxima página">›</button>
+</nav>
+<p id="live" aria-live="polite" style="position:absolute;left:-9999px"></p>
+
+<script>
+const book=document.getElementById('book'),L=[...book.querySelectorAll('.leaf')],N=L.length,dots=document.getElementById('dots');
+let cur=0;
+L.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Ir para a página '+(i+1));b.onclick=()=>go(i);dots.append(b)});
+function go(n){
+  n=Math.max(0,Math.min(N-1,n));const ch=n!==cur;cur=n;
+  L.forEach((l,i)=>{l.classList.toggle('turned',i<cur);l.style.zIndex=N-i;l.inert=i!==cur});
+  [...dots.children].forEach((d,i)=>i===cur?d.setAttribute('aria-current','page'):d.removeAttribute('aria-current'));
+  book.classList.toggle('first',cur===0);book.classList.toggle('last',cur===N-1);
+  pv.disabled=cur===0;nx.disabled=cur===N-1;
+  const s=L[cur].querySelector('.sheet');if(s&&ch)s.scrollTop=0;
+  document.getElementById('live').textContent='Página '+(cur+1)+' de '+N+': '+L[cur].getAttribute('aria-label');
+  history.replaceState(null,'','#p'+(cur+1));
+}
+const pv=document.getElementById('pv'),nx=document.getElementById('nx');
+pv.onclick=()=>go(cur-1);nx.onclick=()=>go(cur+1);
+const zone=e=>{const r=book.getBoundingClientRect(),x=(e.clientX-r.left)/r.width;return x<.17?-1:x>.83?1:0};
+book.addEventListener('click',e=>{if(getSelection().toString()||e.target.closest('a'))return;const z=zone(e);if(z)go(cur+z)});
+book.addEventListener('pointermove',e=>{const z=zone(e);book.classList.toggle('l',z<0);book.classList.toggle('r',z>0);book.style.cursor=z<0&&cur>0?'w-resize':z>0&&cur<N-1?'e-resize':''});
+book.addEventListener('pointerleave',()=>book.classList.remove('l','r'));
+let sx,sy;
+book.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+book.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>50&&Math.abs(dy)<40)go(cur+(dx<0?1:-1))},{passive:true});
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1);if(e.key==='Home')go(0);if(e.key==='End')go(N-1)});
+const m=location.hash.match(/^#p(\d+)$/);cur=-1;go(m?m[1]-1:0);
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add('ready')));
+</script>
+</body>
+</html>
